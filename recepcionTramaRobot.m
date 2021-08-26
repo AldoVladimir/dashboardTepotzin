@@ -29,8 +29,6 @@ flush(s)
 figure
 recentReadings=plot(1);
 
-
-stopheader=[0x76 0x89 zeros(1,44)];
 %% Lectura
 N=1;
 i=0;
@@ -57,7 +55,6 @@ end
 pause(0.75)
 
 write(s,READINGS.DICTIONARY_COMMANDS.Stop,"uint8");
-
 
 %% Resume
 write(s,READINGS.DICTIONARY_COMMANDS.Resume,"uint8");
