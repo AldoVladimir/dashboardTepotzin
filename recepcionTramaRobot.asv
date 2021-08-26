@@ -68,8 +68,7 @@ RSSI_5=plotRSSI_db(1,READINGS,N_1Son,N_2Son,5);
 
 if READINGS.NAVIGATION.CurrentState(1)==1
     i=i+1;d
-    pause(0.75)    
-    %write(s,READINGS.DICTIONARY_COMMANDS.Stop,"uint8"); 
+pause(0.75)    %write(s,READINGS.DICTIONARY_COMMANDS.Stop,"uint8"); 
 end
 %write(s,READINGS.DICTIONARY_COMMANDS.Stop,"uint8");
 
