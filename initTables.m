@@ -13,8 +13,8 @@ BOBINA=array2table(zeros(ind,15),'VariableNames',["ClusterSize" "BandsDetected" 
 
 %Tabla navigation
 NAVIGATION=array2table(zeros(ind,9),'VariableNames', ...
-    ["CurrentState" "NextState" "nav_Cycs" "ACS" "LCS" "ClusterChanged" ...
-     "BetterClusterFound" "MovStatus" "EscStrategy"]);
+    ["CurrentState" "NextState" "nav_Cycs" "ACS" "LCS" "RCSL_counter" ...
+     "ResetCluster" "BCF_counter" "EscapeFromCluster"]);
 
 %Tabla RSSI primer sondeo
 RSSI_1Son=array2table(zeros(N_Son1*ind,7),'VariableNames',["CH1" "CH2" "CH3" "CH4" "DBG_MSG" "Robot_Id" "Step"]);

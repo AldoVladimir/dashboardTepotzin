@@ -30,10 +30,10 @@ i=1;
     READINGS.NAVIGATION{i,"nav_Cycs"}=typecast(uint8(dataMatrix(i,85:86)),'uint16');
     READINGS.NAVIGATION{i,"ACS"}=uint8(dataMatrix(i,87));
     READINGS.NAVIGATION{i,"LCS"}=uint8(dataMatrix(i,88));
-    READINGS.NAVIGATION{i,"ClusterChanged"}=logical(dataMatrix(i,89));
-    READINGS.NAVIGATION{i,"BetterClusterFound"}=logical(dataMatrix(i,90));
-    READINGS.NAVIGATION{i,"MovStatus"}=uint8(dataMatrix(i,91));
-    READINGS.NAVIGATION{i,"ACS"}=uint8(dataMatrix(i,91));
+    READINGS.NAVIGATION{i,"RCSL_counter"}=uint8(dataMatrix(i,89));
+    READINGS.NAVIGATION{i,"ResetCluster"}=logical(dataMatrix(i,90));
+    READINGS.NAVIGATION{i,"BCF_counter"}=uint8(dataMatrix(i,91));
+    READINGS.NAVIGATION{i,"EscapeFromCluster"}=bool(dataMatrix(i,91));
     
     %Step vector
     stepVector_1Son=(1:N_1Son)';
