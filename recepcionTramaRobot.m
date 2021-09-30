@@ -17,6 +17,7 @@ N_1Son=12; N_2Son=12; % N_Son1+N_Son2<=35!!
 %Inicializacion de variables
 dataMatrix = zeros(ind,254);
 [READINGS] = initTables(ind,N_1Son,N_2Son);
+baselineGain=100;
 
 %Limpia el buffer
 flush(s)
@@ -41,10 +42,28 @@ RSSI_4=plot(1);
 
 subplot(2,3,5)
 RSSI_5=plot(1);
+
+
+figure
+subplot(2,3,1)
+COIL_1=plot(1);
+
+subplot(2,3,2)
+COIL_2=plot(1);
+
+subplot(2,3,3)
+COIL_3=plot(1);
+
+subplot(2,3,4)
+COIL_4=plot(1);
+
+subplot(2,3,5)
+COIL_5=plot(1);
+
 %% Lectura
 N=1;
 i=0;
-while 1
+%while 1
 %while i<N
 %Mover todos las lecturas un espacio
 dataMatrix=circshift(dataMatrix,1);
@@ -66,6 +85,27 @@ RSSI_4=plotRSSI_db(1,READINGS,N_1Son,N_2Son,4);
 subplot(2,3,5)
 RSSI_5=plotRSSI_db(1,READINGS,N_1Son,N_2Son,5);
 
+
+subplot(2,3,1)
+COIL_1=bar(READINGS.BOBINA{1,3:13})
+hold on
+yline(READINGS.BOBINA.PSD_Base(1),'--','Bl');
+yline(READINGS.BOBINA.PSD_Base(1).*baselineGain,'--','Th');
+hold off
+xlabel("Banda")
+ylabel("PSD (V^2/Hz)")
+grid
+title("R"+READINGS.CABECERA.Robot_ID(1))
+
+% subplot(2,3,2)
+% COIL_2=plotCOIL(1,READINGS,N_1Son,N_2Son,2);
+% subplot(2,3,3)
+% COIL_3=plotCOIL(1,READINGS,N_1Son,N_2Son,3);
+% subplot(2,3,4)
+% COIL_4=plotCOIL(1,READINGS,N_1Son,N_2Son,4);
+% subplot(2,3,5)
+% COIL_5=plotCOIL(1,READINGS,N_1Son,N_2Son,5);
+
 if READINGS.NAVIGATION.CurrentState(1)==1
     i=i+1;d
     pause(0.75)    
@@ -74,7 +114,7 @@ end
 %write(s,READINGS.DICTIONARY_COMMANDS.Stop,"uint8");
 
 %write(s,READINGS.DICTIONARY_COMMANDS.Resume,"uint8");
-end
+%end
 pause(0.75)
 
 %write(s,READINGS.DICTIONARY_COMMANDS.Stop,"uint8");

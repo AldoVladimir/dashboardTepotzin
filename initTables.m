@@ -10,6 +10,8 @@ MOTORS=array2table(zeros(ind,4),'VariableNames',["Imot" "Isys" "MotorStatus" "Is
 %Tabla de bobina
 BOBINA=array2table(zeros(ind,15),'VariableNames',["ClusterSize" "BandsDetected" "PSD_B1" "PSD_B2" "PSD_B3" "PSD_B4" "PSD_B5" ...
     "PSD_B6" "PSD_B7" "PSD_B8" "PSD_B9" "PSD_B10" "PSD_B11" "PSD_Base" "BandsEmitted"]);
+BOBINA.BandsDetected=cellstr(repmat('00000000000',ind,1));
+BOBINA.BandsEmitted=cellstr(repmat('00000000000',ind,1));
 
 %Tabla navigation
 NAVIGATION=array2table(zeros(ind,9),'VariableNames', ...

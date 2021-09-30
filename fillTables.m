@@ -18,11 +18,21 @@ i=1;
 
     %Tabla de bobina    
     READINGS.BOBINA{i,"ClusterSize"}=typecast(uint8(dataMatrix(i,21:22)),'uint16');
-    READINGS.BOBINA{i,"BandsDetected"}=typecast(uint8(dataMatrix(i,23:24)),'uint16');
     for j=3:14
         READINGS.BOBINA{i,j}=typecast(uint8(dataMatrix(i,(25:28)+4.*(j-3))),'single');     
     end
-    READINGS.BOBINA{i,"BandsEmitted"}=typecast(uint8(dataMatrix(i,73:74)),'uint16');
+    
+    
+    temp_detected=flip(dec2bin(typecast(uint8(dataMatrix(i,23:24)),'uint16')));
+    temp_emitted=flip(dec2bin(typecast(uint8(dataMatrix(i,73:74)),'uint16')));
+    
+    for j=1:min([numel(temp_detected) 11])
+    READINGS.BOBINA{i,"BandsDetected"}{1}(j)=temp_detected(j);
+    end
+    
+    for j=1:min([numel(temp_emitted) 11])
+    READINGS.BOBINA{i,"BandsEmitted"}{1}(j)=temp_emitted(j);
+    end
     
     %Navigaion
     READINGS.NAVIGATION{i,"CurrentState"}=typecast(uint8(dataMatrix(i,77:80)),'int32');
@@ -33,7 +43,7 @@ i=1;
     READINGS.NAVIGATION{i,"RCSL_counter"}=uint8(dataMatrix(i,89));
     READINGS.NAVIGATION{i,"ResetCluster"}=logical(dataMatrix(i,90));
     READINGS.NAVIGATION{i,"BCF_counter"}=uint8(dataMatrix(i,91));
-    READINGS.NAVIGATION{i,"EscapeFromCluster"}=bool(dataMatrix(i,91));
+    READINGS.NAVIGATION{i,"EscapeFromCluster"}=logical(dataMatrix(i,91));
     
     %Step vector
     stepVector_1Son=(1:N_1Son)';
