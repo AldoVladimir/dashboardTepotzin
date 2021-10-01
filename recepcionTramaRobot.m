@@ -86,16 +86,26 @@ subplot(2,3,5)
 RSSI_5=plotRSSI_db(1,READINGS,N_1Son,N_2Son,5);
 
 
+% subplot(2,3,1)
+% COIL_1=bar(READINGS.BOBINA{1,3:13})
+% hold on
+% yline(READINGS.BOBINA.PSD_Base(1),'--','Bl');
+% yline(READINGS.BOBINA.PSD_Base(1).*baselineGain,'--','Th');
+% hold off
+% xlabel("Banda")
+% ylabel("PSD (V^2/Hz)")
+% grid
+% title("R"+READINGS.CABECERA.Robot_ID(1))
+
 subplot(2,3,1)
-COIL_1=bar(READINGS.BOBINA{1,3:13})
-hold on
-yline(READINGS.BOBINA.PSD_Base(1),'--','Bl');
-yline(READINGS.BOBINA.PSD_Base(1).*baselineGain,'--','Th');
-hold off
+Bands_1=bar(1:11,[READINGS.BANDS_BOBINA.BandsEmitted(1,:)' READINGS.BANDS_BOBINA.BandsDetected(1,:)']);
+legend("Emmited","Detected",'location','southoutside','orientation','horizontal')
 xlabel("Banda")
-ylabel("PSD (V^2/Hz)")
-grid
+%ylabel("PSD (V^2/Hz)")
+ylim([0 1.2])
 title("R"+READINGS.CABECERA.Robot_ID(1))
+
+
 
 % subplot(2,3,2)
 % COIL_2=plotCOIL(1,READINGS,N_1Son,N_2Son,2);
