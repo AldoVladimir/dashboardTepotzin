@@ -63,7 +63,7 @@ COIL_5=plot(1);
 %% Lectura
 N=1;
 i=0;
-%while 1
+while 1
 %while i<N
 %Mover todos las lecturas un espacio
 dataMatrix=circshift(dataMatrix,1);
@@ -73,39 +73,46 @@ READINGS=circShiftAll(READINGS,N_1Son,N_2Son);
 dataMatrix(1,:)=read(s,254,'uint8');
 READINGS=fillTables(dataMatrix,READINGS,N_1Son,N_2Son);
 
-%Ploteo de lecturas
-subplot(2,3,1)
-RSSI_1=plotRSSI_db(1,READINGS,N_1Son,N_2Son,1);
-subplot(2,3,2)
-RSSI_2=plotRSSI_db(1,READINGS,N_1Son,N_2Son,2);
-subplot(2,3,3)
-RSSI_3=plotRSSI_db(1,READINGS,N_1Son,N_2Son,3);
-subplot(2,3,4)
-RSSI_4=plotRSSI_db(1,READINGS,N_1Son,N_2Son,4);
-subplot(2,3,5)
-RSSI_5=plotRSSI_db(1,READINGS,N_1Son,N_2Son,5);
-
-
+% %Ploteo de lecturas
 % subplot(2,3,1)
-% COIL_1=bar(READINGS.BOBINA{1,3:13})
-% hold on
-% yline(READINGS.BOBINA.PSD_Base(1),'--','Bl');
-% yline(READINGS.BOBINA.PSD_Base(1).*baselineGain,'--','Th');
-% hold off
-% xlabel("Banda")
-% ylabel("PSD (V^2/Hz)")
-% grid
-% title("R"+READINGS.CABECERA.Robot_ID(1))
+% RSSI_1=plotRSSI_db(1,READINGS,N_1Son,N_2Son,1);
+% subplot(2,3,2)
+% RSSI_2=plotRSSI_db(1,READINGS,N_1Son,N_2Son,2);
+% subplot(2,3,3)
+% RSSI_3=plotRSSI_db(1,READINGS,N_1Son,N_2Son,3);
+% subplot(2,3,4)
+% RSSI_4=plotRSSI_db(1,READINGS,N_1Son,N_2Son,4);
+% subplot(2,3,5)
+% RSSI_5=plotRSSI_db(1,READINGS,N_1Son,N_2Son,5);
 
-subplot(2,3,1)
-Bands_1=bar(1:11,[READINGS.BANDS_BOBINA.BandsEmitted(1,:)' READINGS.BANDS_BOBINA.BandsDetected(1,:)']);
-legend("Emmited","Detected",'location','southoutside','orientation','horizontal')
+
+subplot(2,2,2)
+COIL_1=bar(READINGS.BOBINA{1,3:13});
+hold on
+yline(READINGS.BOBINA.PSD_Base(1),'--','Bl');
+yline(READINGS.BOBINA.PSD_Base(1).*baselineGain,'--','Th');
+hold off
 xlabel("Banda")
-%ylabel("PSD (V^2/Hz)")
-ylim([0 1.2])
+ylabel("PSD (V^2/Hz)")
+grid
 title("R"+READINGS.CABECERA.Robot_ID(1))
+set(gca, 'YScale', 'log')
+ylim([1E-4 1])
 
+subplot(2,2,1)
+h1=heatmap(READINGS.BANDS_BOBINA.BandsEmitted(1:7,:));
+xlabel("Bandas emitidas")
+ylabel("Últimas lecturas")
+title("R"+READINGS.CABECERA.Robot_ID(1))
+caxis([0 1])
+h1.Colormap=copper;
 
+subplot(2,2,3)
+h2=heatmap(READINGS.BANDS_BOBINA.BandsDetected(1:7,:));
+xlabel("Bandas recibidas")
+ylabel("Últimas lecturas")
+caxis([0 1])
+h2.Colormap=bone;
 
 % subplot(2,3,2)
 % COIL_2=plotCOIL(1,READINGS,N_1Son,N_2Son,2);
@@ -116,15 +123,15 @@ title("R"+READINGS.CABECERA.Robot_ID(1))
 % subplot(2,3,5)
 % COIL_5=plotCOIL(1,READINGS,N_1Son,N_2Son,5);
 
-if READINGS.NAVIGATION.CurrentState(1)==1
-    i=i+1;d
-    pause(0.75)    
-    %write(s,READINGS.DICTIONARY_COMMANDS.Stop,"uint8"); 
-end
+% if READINGS.NAVIGATION.CurrentState(1)==1
+%     i=i+1;d
+%     pause(0.75)    
+%     %write(s,READINGS.DICTIONARY_COMMANDS.Stop,"uint8"); 
+% end
 %write(s,READINGS.DICTIONARY_COMMANDS.Stop,"uint8");
 
 %write(s,READINGS.DICTIONARY_COMMANDS.Resume,"uint8");
-%end
+end
 pause(0.75)
 
 %write(s,READINGS.DICTIONARY_COMMANDS.Stop,"uint8");
