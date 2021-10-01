@@ -34,6 +34,12 @@ i=1;
     READINGS.BOBINA{i,"BandsEmitted"}{1}(j)=temp_emitted(j);
     end
     
+    %Bandas de bobina
+    for j=1:11
+    READINGS.BANDS_BOBINA{i,"BandsDetected"}(j)=str2double(READINGS.BOBINA{i,"BandsDetected"}{1}(j));
+    READINGS.BANDS_BOBINA{i,"BandsEmitted"}(j)=str2double(READINGS.BOBINA{i,"BandsEmitted"}{1}(j));
+    end
+    
     %Navigaion
     READINGS.NAVIGATION{i,"CurrentState"}=typecast(uint8(dataMatrix(i,77:80)),'int32');
     READINGS.NAVIGATION{i,"NextState"}=typecast(uint8(dataMatrix(i,81:84)),'int32');

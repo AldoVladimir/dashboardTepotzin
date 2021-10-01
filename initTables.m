@@ -13,6 +13,10 @@ BOBINA=array2table(zeros(ind,15),'VariableNames',["ClusterSize" "BandsDetected" 
 BOBINA.BandsDetected=cellstr(repmat('00000000000',ind,1));
 BOBINA.BandsEmitted=cellstr(repmat('00000000000',ind,1));
 
+%Tabla bandas dectadas y emitidas
+BANDS_BOBINA=table(zeros(ind,11),zeros(ind,11),'VariableNames',["BandsDetected" "BandsEmitted"]);
+
+
 %Tabla navigation
 NAVIGATION=array2table(zeros(ind,9),'VariableNames', ...
     ["CurrentState" "NextState" "nav_Cycs" "ACS" "LCS" "RCSL_counter" ...
@@ -38,7 +42,7 @@ statesDictionary=table((0:4)',(["BOOT" "SEARCH ROT" "SEARCH ST" "ORIENT N' MOVE"
 %Diccionario de interrupciones
 commandsDictionary=table((uint8([0x76 0x89 zeros(1,44)]))',(uint8([0x76 0x8A zeros(1,44)]))','VariableNames',["Stop" "Resume"]);
 
-READINGS=struct("CABECERA",CABECERA,"MOTORS",MOTORS,"BOBINA",BOBINA,"NAVIGATION",NAVIGATION,"RSSI_1Son",RSSI_1Son,"RSSI_2Son",RSSI_2Son,"THRESHOLD",THRESHOLD,"STAT_RSSI",STAT_RSSI,"DICTIONARY_STATES",statesDictionary,"DICTIONARY_COMMANDS",commandsDictionary);
+READINGS=struct("CABECERA",CABECERA,"MOTORS",MOTORS,"BOBINA",BOBINA,"BANDS_BOBINA",BANDS_BOBINA,"NAVIGATION",NAVIGATION,"RSSI_1Son",RSSI_1Son,"RSSI_2Son",RSSI_2Son,"THRESHOLD",THRESHOLD,"STAT_RSSI",STAT_RSSI,"DICTIONARY_STATES",statesDictionary,"DICTIONARY_COMMANDS",commandsDictionary);
 
 
 end
