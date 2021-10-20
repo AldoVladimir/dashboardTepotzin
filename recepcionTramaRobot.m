@@ -3,7 +3,8 @@ baudRate=115200;
 %serialportlist
 %UsarACM0 para recibir datos de la Launchpad
 %ACM1 no envía datos. Se usa para debug propio.
-s=serialport("/dev/ttyACM0",baudRate,'Timeout',60)
+%s=serialport("/dev/ttyACM0",baudRate,'Timeout',60)
+s=serialport("COM15",baudRate,'Timeout',180)
 %s=serialport("/dev/ttyUSB0",baudRate,'Timeout',30);
 configureTerminator(s,"CR/LF")
 
@@ -67,7 +68,7 @@ subplot(2,3,5)
 RSSI_5=plotRSSI_db(1,READINGS,N_1Son,N_2Son,5);
 
 if READINGS.NAVIGATION.CurrentState(1)==1
-    i=i+1;d
+    i=i+1;
     pause(0.75)    
     %write(s,READINGS.DICTIONARY_COMMANDS.Stop,"uint8"); 
 end
