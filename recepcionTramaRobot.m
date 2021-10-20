@@ -66,7 +66,7 @@ while 1
 %while i<N
 %Mover todos las lecturas un espacio
 dataMatrix=circshift(dataMatrix,1);
-READINGS=circShiftAll(READINGS,N_1Son,N_2Son);
+READINGS=circShiftAll(READINGS);
 
 %Lectura del serial y llenado de tablas
 dataMatrix(1,:)=read(s,254,'uint8');
