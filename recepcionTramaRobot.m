@@ -17,11 +17,11 @@ N_1Son=12; N_2Son=12; % N_Son1+N_Son2<=35!!
 %Inicializacion de variables
 dataMatrix = zeros(ind,254);
 [READINGS] = initTables(ind,N_1Son,N_2Son);
-baselineGain=100;
+baselineGain=20;
 
 %Limpia el buffer
 flush(s)
-
+%% Inicializar figura
 %Cargar archivos dummy
 %load RFData.mat
 
