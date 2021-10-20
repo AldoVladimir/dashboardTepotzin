@@ -13,6 +13,16 @@ BOBINA=array2table(zeros(ind,15),'VariableNames',["ClusterSize" "BandsDetected" 
 BOBINA.BandsDetected=cellstr(repmat('00000000000',ind,1));
 BOBINA.BandsEmitted=cellstr(repmat('00000000000',ind,1));
 
+%Tabla thresholds
+THRESHOLDS=array2table(zeros(ind,11),'VariableNames',["Thld_B"+(1:11)]);
+
+%Tabla Sigma/Max
+SM=array2table(zeros(ind,11),'VariableNames',["SM_B"+(1:11)]);
+
+%Tabla N Sigma
+NSIGMA=array2table(zeros(ind,11),'VariableNames',["N_"+(1:11)]);
+
+
 %Tabla bandas dectadas y emitidas
 BANDS_BOBINA=table(zeros(ind,11),zeros(ind,11),'VariableNames',["BandsDetected" "BandsEmitted"]);
 
@@ -23,10 +33,10 @@ NAVIGATION=array2table(zeros(ind,9),'VariableNames', ...
      "ResetCluster" "BCF_counter" "EscapeFromCluster"]);
 
 %Tabla RSSI primer sondeo
-RSSI_1Son=array2table(zeros(N_Son1*ind,7),'VariableNames',["CH1" "CH2" "CH3" "CH4" "DBG_MSG" "Robot_Id" "Step"]);
+RSSI_1Son=array2table(zeros(ind,N_Son1+3),'VariableNames',["RSSI_"+(1:N_Son1) "DBG_MSG" "Robot_Id" "Step"]);
 
 %Tabla RSSI segundo sondeo
-RSSI_2Son=array2table(zeros(N_Son2*ind,7),'VariableNames',["CH1" "CH2" "CH3" "CH4" "DBG_MSG" "Robot_Id" "Step"]);
+RSSI_2Son=array2table(zeros(ind,N_Son2+3),'VariableNames',["RSSI_"+(1:N_Son2) "DBG_MSG" "Robot_Id" "Step"]);
 
 %Tabla THRESHOLD segundo sondeo
 THRESHOLD=array2table(zeros(ind,4),'VariableNames',["Max1" "Max2" "Max3" "Thld"]);
@@ -42,7 +52,7 @@ statesDictionary=table((0:4)',(["BOOT" "SEARCH ROT" "SEARCH ST" "ORIENT N' MOVE"
 %Diccionario de interrupciones
 commandsDictionary=table((uint8([0x76 0x89 zeros(1,44)]))',(uint8([0x76 0x8A zeros(1,44)]))','VariableNames',["Stop" "Resume"]);
 
-READINGS=struct("CABECERA",CABECERA,"MOTORS",MOTORS,"BOBINA",BOBINA,"BANDS_BOBINA",BANDS_BOBINA,"NAVIGATION",NAVIGATION,"RSSI_1Son",RSSI_1Son,"RSSI_2Son",RSSI_2Son,"THRESHOLD",THRESHOLD,"STAT_RSSI",STAT_RSSI,"DICTIONARY_STATES",statesDictionary,"DICTIONARY_COMMANDS",commandsDictionary);
+READINGS=struct("NSIGMA",NSIGMA,"SM",SM,"THRESHOLDS",THRESHOLDS,"CABECERA",CABECERA,"MOTORS",MOTORS,"BOBINA",BOBINA,"BANDS_BOBINA",BANDS_BOBINA,"NAVIGATION",NAVIGATION,"RSSI_1Son",RSSI_1Son,"RSSI_2Son",RSSI_2Son,"THRESHOLD",THRESHOLD,"STAT_RSSI",STAT_RSSI,"DICTIONARY_STATES",statesDictionary,"DICTIONARY_COMMANDS",commandsDictionary);
 
 
 end
