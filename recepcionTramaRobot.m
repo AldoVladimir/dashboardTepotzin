@@ -1,6 +1,6 @@
 %% Objeto Serial
 baudRate=115200;
-serialportlist
+%serialportlist
 %UsarACM0 para recibir datos de la Launchpad
 %ACM1 no envía datos. Se usa para debug propio.
 s=serialport("/dev/ttyACM0",baudRate,'Timeout',60)
@@ -23,43 +23,9 @@ baselineGain=20;
 %Limpia el buffer
 flush(s)
 %% Inicializar figura
-%Cargar archivos dummy
-%load RFData.mat
 
-% %Inicializar figuras
-% RSSI_figure=figure('Name','RSSI','NumberTitle','off');
-% subplot(2,3,1)
-% RSSI_1=plot(1);
-% 
-% subplot(2,3,2)
-% RSSI_2=plot(1);
-% 
-% subplot(2,3,3)
-% RSSI_3=plot(1);
-% 
-% subplot(2,3,4)
-% RSSI_4=plot(1);
-% 
-% subplot(2,3,5)
-% RSSI_5=plot(1);
-
-
+RSSI_figure=figure('Name','RSSI','NumberTitle','off');
 COIL_figure=figure('Name','Bobinas','NumberTitle','off');
-% subplot(5,3,1)
-% COIL_1=plot(1);
-% 
-% subplot(5,3,2)
-% COIL_2=plot(1);
-% 
-% subplot(5,3,3)
-% COIL_3=plot(1);
-% 
-% subplot(5,3,4)
-% COIL_4=plot(1);
-% 
-% subplot(5,3,5)
-% COIL_5=plot(1);
-
 %% Lectura
 N=1;
 i=0;
@@ -73,18 +39,13 @@ READINGS=circShiftAll(READINGS);
 dataMatrix(1,:)=read(s,254,'uint8');
 READINGS=fillTables(dataMatrix,READINGS,N_1Son,N_2Son);
 
-% % %Ploteo de lecturas
-% figure(RSSI_figure)
-% subplot(2,3,1)
-% RSSI_1=plotRSSI_db(1,READINGS,N_1Son,N_2Son,1);
-% subplot(2,3,2)
-% RSSI_2=plotRSSI_db(1,READINGS,N_1Son,N_2Son,2);
-% subplot(2,3,3)
-% RSSI_3=plotRSSI_db(1,READINGS,N_1Son,N_2Son,3);
-% subplot(2,3,4)
-% RSSI_4=plotRSSI_db(1,READINGS,N_1Son,N_2Son,4);
-% subplot(2,3,5)
-% RSSI_5=plotRSSI_db(1,READINGS,N_1Son,N_2Son,5);
+%Ploteo de lecturas
+figure(RSSI_figure)
+plotRSSI(1,READINGS,1);
+plotRSSI(1,READINGS,2);
+plotRSSI(1,READINGS,3);
+plotRSSI(1,READINGS,4);
+plotRSSI(1,READINGS,5);
 
 figure(COIL_figure)
 plotCOIL(2,READINGS,1,30)

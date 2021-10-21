@@ -13,7 +13,6 @@ BOBINA.BandsDetected=cellstr(repmat('00000000000',ind,1));
 BOBINA.BandsEmitted=cellstr(repmat('00000000000',ind,1));
 
 %Tabla SigmaBobinas
-%COILSIGMAS=array2table(zeros(ind,33),'VariableNames',["Thld_B"+(1:11) "SM_B"+(1:11) "N_"+(1:11)]);
 COILSIGMAS=table(zeros(ind,11),zeros(ind,11),zeros(ind,11),'VariableNames',["Thld_B" "SM_B" "N_B"]);
 
 
