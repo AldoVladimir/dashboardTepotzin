@@ -1,10 +1,11 @@
 %% Objeto Serial
 baudRate=115200;
-%serialportlist
+serialportlist
 %UsarACM0 para recibir datos de la Launchpad
 %ACM1 no envía datos. Se usa para debug propio.
 s=serialport("/dev/ttyACM0",baudRate,'Timeout',60)
-%s=serialport("/dev/ttyUSB0",baudRate,'Timeout',30);
+%s=serialport("/dev/ttyUSB0",baudRate,'Timeout',60);
+%s_TTDM=serialport("/dev/ttyUSB0",baudRate,'Timeout',60);
 configureTerminator(s,"CR/LF")
 
 %% Inicializacion de variables
@@ -86,11 +87,11 @@ READINGS=fillTables(dataMatrix,READINGS,N_1Son,N_2Son);
 % RSSI_5=plotRSSI_db(1,READINGS,N_1Son,N_2Son,5);
 
 figure(COIL_figure)
-plotCOIL(2,READINGS,1,30,baselineGain)
-plotCOIL(2,READINGS,2,30,baselineGain)
-plotCOIL(2,READINGS,3,30,baselineGain)
-plotCOIL(2,READINGS,4,30,baselineGain)
-plotCOIL(2,READINGS,5,30,baselineGain)
+plotCOIL(2,READINGS,1,30)
+plotCOIL(2,READINGS,2,30)
+plotCOIL(2,READINGS,3,30)
+plotCOIL(2,READINGS,4,30)
+plotCOIL(2,READINGS,5,30)
 
 % if READINGS.NAVIGATION.CurrentState(1)==1
 %     i=i+1;d
@@ -107,6 +108,10 @@ pause(0.75)
 
 %% Resume
 write(s,READINGS.DICTIONARY_COMMANDS.Resume,"uint8")
+
+%% Debug TTDM
+deb=read(s,254,'uint8');
+%TTDM=read(s_TTDM,254,'uint8')
 %% Guardado de lecturas
 %writetable(T,"./logs/.xlsx",'Sheet',1)
 
