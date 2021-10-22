@@ -19,7 +19,6 @@ yline(READINGS.BOBINA.PSD_Baseline(1),'-','Baseline','LabelVerticalAlignment','b
 hold off
 %text(1:11,repmat(1E-5,11,1),num2str(READINGS.COILSIGMAS.N_B(1,:)),'horiz','center'); 
 box off
-%ylabel("(V^2/Hz)")
 grid
 title(["PSD  R"+id_robot;"DBG      Act: "+submatrixDBG(1)+"  Pst: "+submatrixDBG(2)])
 set(gca, 'YScale', 'log','XGrid','off')
@@ -29,9 +28,7 @@ yticks = get(gca,'YTick');
 set(gca,'YTickLabel',yticks);
 
 subplot(5,3,2+(id_robot-1).*3)
-h1=heatmap(subtable_bands.BandsEmitted(1:no_readings,:));
-%xlabel("Bandas emitidas")
-%ylabel("Últimas lecturas")
+h1=heatmap(subtable_bands.BandsDetected(1:no_readings,:));
 caxis([0 1])
 h1.Colormap=copper;
 h1.ColorbarVisible = 'off';
@@ -40,9 +37,7 @@ h1.XDisplayLabels=["1" "2" "3" "4" "5" "I" "II" "III" "IV" "V" "RST"];
 title(["Últimas recibidas";"Clust. Sz.: "+READINGS.NAVIGATION.ACS(1)+"     R. lost: "+READINGS.NAVIGATION.RCSL_counter(1)])
 
 subplot(5,3,3+(id_robot-1).*3)
-h2=heatmap(subtable_bands.BandsDetected(1:no_readings,:));
-%xlabel("Bandas recibidas")
-%ylabel("Últimas lecturas")
+h2=heatmap(subtable_bands.BandsEmitted(1:no_readings,:));
 caxis([0 1])
 h2.Colormap=bone;
 h2.ColorbarVisible = 'off';
