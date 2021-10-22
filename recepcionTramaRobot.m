@@ -3,7 +3,7 @@ baudRate=115200;
 %serialportlist
 %UsarACM0 para recibir datos de la Launchpad
 %ACM1 no envía datos. Se usa para debug propio.
-s=serialport("/dev/ttyACM0",baudRate,'Timeout',60)
+s=serialport("/dev/ttyACM0",baudRate,'Timeout',100)
 %s=serialport("/dev/ttyUSB0",baudRate,'Timeout',60);
 %s_TTDM=serialport("/dev/ttyUSB0",baudRate,'Timeout',60);
 configureTerminator(s,"CR/LF")
@@ -14,6 +14,8 @@ ind=500;
 
 %Número de muestras por sondeo
 N_1Son=12; N_2Son=12; % N_Son1+N_Son2<=35!!
+%Numero de lecturas de bobina
+no_lecturas=10;
 
 %Inicializacion de variables
 dataMatrix = zeros(ind,254);
@@ -22,10 +24,9 @@ baselineGain=20;
 
 %Limpia el buffer
 flush(s)
-%% Inicializar figura
-
+%% Inicializar figuras
 RSSI_figure=figure('Name','RSSI','NumberTitle','off');
-COIL_figure=figure('Name','Bobinas','NumberTitle','off');
+COIL_figure=figure('Name','COIL','NumberTitle','off');
 %% Lectura
 N=1;
 i=0;
@@ -48,11 +49,11 @@ plotRSSI(1,READINGS,4);
 plotRSSI(1,READINGS,5);
 
 figure(COIL_figure)
-plotCOIL(2,READINGS,1,30)
-plotCOIL(2,READINGS,2,30)
-plotCOIL(2,READINGS,3,30)
-plotCOIL(2,READINGS,4,30)
-plotCOIL(2,READINGS,5,30)
+plotCOIL(2,READINGS,1,no_lecturas)
+plotCOIL(2,READINGS,2,no_lecturas)
+plotCOIL(2,READINGS,3,no_lecturas)
+plotCOIL(2,READINGS,4,no_lecturas)
+plotCOIL(2,READINGS,5,no_lecturas)
 
 % if READINGS.NAVIGATION.CurrentState(1)==1
 %     i=i+1;d
@@ -75,8 +76,6 @@ deb=read(s,254,'uint8');
 %TTDM=read(s_TTDM,254,'uint8')
 %% Guardado de lecturas
 %writetable(T,"./logs/.xlsx",'Sheet',1)
-
-
 %% Prueba de recibir-enviar
 % clear ans
 % flush(s)
