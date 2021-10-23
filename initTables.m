@@ -26,7 +26,7 @@ NAVIGATION=array2table(zeros(ind,9),'VariableNames', ...
      "ResetCluster" "BCF_counter" "EscapeFromCluster"]);
 
 %Tabla RSSI
-RSSI=table(zeros(ind,N_Son1),zeros(ind,N_Son2),zeros(ind,3),zeros(ind,1),'VariableNames',["RSSI_1" "RSSI_2" "Max" "Thld"]);
+RSSI=table(zeros(ind,N_Son1),zeros(ind,N_Son2),zeros(ind,3),zeros(ind,1),zeros(ind,1),'VariableNames',["RSSI_1" "RSSI_2" "Max" "Thld" "CH_Tx"]);
 
 %Diccionario de estados
 statesDictionary=table((0:4)',(["BOOT" "SEARCH ROT" "SEARCH ST" "ORIENT N' MOVE" "ESCAPE STRATEGY"])','VariableNames',["Number" "Meaning"]);

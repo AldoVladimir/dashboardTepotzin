@@ -63,6 +63,7 @@ i=1;
     READINGS.RSSI{i,"RSSI_2"}=-dataMatrix(i,(1:N_2Son)+RSSI_start+N_1Son); 
     READINGS.RSSI{i,"Max"}=typecast(uint8(dataMatrix(i,185:196)),'single');
     READINGS.RSSI{i,"Thld"}=typecast(uint8(dataMatrix(i,197:200)),'single');
+    READINGS.RSSI{i,"CH_Tx"}=dataMatrix(i,225);
     
     READINGS.RSSI{i,"RSSI_1"}(READINGS.RSSI{i,"RSSI_1"}==0)=NaN;
     READINGS.RSSI{i,"RSSI_2"}(READINGS.RSSI{i,"RSSI_2"}==0)=NaN;
