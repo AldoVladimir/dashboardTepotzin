@@ -2,7 +2,7 @@ function [READINGS] = fillTables(dataMatrix,READINGS,N_1Son,N_2Son)
 %Inicializa todas las tablas con un conjunto de ceros
 %y los guarda en una estructura 
 
-
+if dataMatrix(1,1:3)== [68 66 71]
 i=1;
     %Cabecera
     READINGS.CABECERA{i,"Header"}=string(char(uint8(dataMatrix(1,1:3))));       
@@ -23,6 +23,7 @@ i=1;
     
     temp_detected=flip(dec2bin(typecast(uint8(dataMatrix(i,15:16)),'uint16')));
     temp_emitted=flip(dec2bin(typecast(uint8(dataMatrix(i,65:66)),'uint16')));
+ 
     
     for j=1:min([numel(temp_detected) 11])
     READINGS.BOBINA{i,"BandsDetected"}{1}(j)=temp_detected(j);
@@ -31,6 +32,11 @@ i=1;
     for j=1:min([numel(temp_emitted) 11])
     READINGS.BOBINA{i,"BandsEmitted"}{1}(j)=temp_emitted(j);
     end
+      
+    
+    %Limpio entradas actuales
+    READINGS.BANDS_BOBINA{i,"BandsDetected"}=zeros(1,11);
+    READINGS.BANDS_BOBINA{i,"BandsEmitted"}=zeros(1,11);
     
     %Bandas de bobina
     for j=1:11
@@ -50,7 +56,7 @@ i=1;
     READINGS.NAVIGATION{i,"nav_Cycs"}=typecast(uint8(dataMatrix(i,177:178)),'uint16');
     READINGS.NAVIGATION{i,"ACS"}=uint8(dataMatrix(i,179));
     READINGS.NAVIGATION{i,"LCS"}=uint8(dataMatrix(i,180));
-    READINGS.NAVIGATION{i,"RCSL_counter"}=uint8(dataMatrix(i,181));
+    READINGS.NAVIGATION{i,"NC_counter"}=uint8(dataMatrix(i,181));
     READINGS.NAVIGATION{i,"ResetCluster"}=logical(dataMatrix(i,182));
     READINGS.NAVIGATION{i,"BCF_counter"}=uint8(dataMatrix(i,183));
     READINGS.NAVIGATION{i,"EscapeFromCluster"}=logical(dataMatrix(i,184));
@@ -68,6 +74,6 @@ i=1;
     READINGS.RSSI{i,"RSSI_1"}(READINGS.RSSI{i,"RSSI_1"}==0)=NaN;
     READINGS.RSSI{i,"RSSI_2"}(READINGS.RSSI{i,"RSSI_2"}==0)=NaN;
     
-
+end
 end
 

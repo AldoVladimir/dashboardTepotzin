@@ -13,7 +13,7 @@ subtable_bands(1:M,:)=subtable_bands_2(1:M,:);
 bands_number=1:11;
 submatrixDBG=[READINGS.CABECERA.DBG_MSG(READINGS.CABECERA.Robot_ID==id_robot);0];
 
-submatrixCH=zeros(no_readings,5);
+submatrixCH=zeros(no_readings,6);
 for i=1:min(N,no_readings)
     submatrixCH(i,subtable_CH(i)+1)=1;
 end
@@ -47,7 +47,7 @@ h1.Colormap=copper;
 h1.ColorbarVisible = 'off';
 h1.YDisplayLabels=nan(size(h1.YDisplayData));
 h1.XDisplayLabels=["1" "2" "3" "4" "5" "I" "II" "III" "IV" "V" "RST"];
-title(["Últimas recibidas";"Clust. Sz.: "+READINGS.NAVIGATION.ACS(1)+"     R. lost: "+READINGS.NAVIGATION.RCSL_counter(1)])
+title(["Últimas recibidas";"Clust. Sz.: "+READINGS.NAVIGATION.ACS(1)+"     N. C.: "+READINGS.NAVIGATION.NC_counter(1);"BCF Count: "+READINGS.NAVIGATION.BCF_counter(1)])
 
 subplot(5,nCol,3+(id_robot-1).*nCol)
 h2=heatmap(subtable_bands.BandsEmitted(1:no_readings,:),'CellLabelColor','none');
@@ -64,7 +64,7 @@ caxis([0 1])
 h3.Colormap=pink;
 h3.ColorbarVisible = 'off';
 h3.YDisplayLabels=nan(size(h3.YDisplayData));
-h3.XDisplayLabels=["N/A" "1" "2" "3" "4"];
+h3.XDisplayLabels=["N/A" "1" "2" "3" "4" "5"];
 title(["RF TX Ch.";"Update: "+H+":"+m+":"+s])
 
 
