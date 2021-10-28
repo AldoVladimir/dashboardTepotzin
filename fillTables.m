@@ -24,7 +24,11 @@ i=1;
     temp_detected=flip(dec2bin(typecast(uint8(dataMatrix(i,15:16)),'uint16')));
     temp_emitted=flip(dec2bin(typecast(uint8(dataMatrix(i,65:66)),'uint16')));
  
+    %Limpio entradas actuales de chars
+    READINGS.BOBINA{i,"BandsDetected"}={'00000000000'};
+    READINGS.BOBINA{i,"BandsEmitted"}={'00000000000'};
     
+    %Lleno con chars la tabla de Bobinas
     for j=1:min([numel(temp_detected) 11])
     READINGS.BOBINA{i,"BandsDetected"}{1}(j)=temp_detected(j);
     end
@@ -34,7 +38,7 @@ i=1;
     end
       
     
-    %Limpio entradas actuales
+    %Limpio entradas actuales de numeros
     READINGS.BANDS_BOBINA{i,"BandsDetected"}=zeros(1,11);
     READINGS.BANDS_BOBINA{i,"BandsEmitted"}=zeros(1,11);
     
