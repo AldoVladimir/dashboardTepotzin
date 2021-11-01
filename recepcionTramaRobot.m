@@ -11,6 +11,8 @@ configureTerminator(s,"CR/LF")
 %% Inicializacion de variables
 %Número de muestras a recordar
 ind=500;
+%Umbral para rechazo de RSSi
+thld_RSSI=-63;
 
 %Número de muestras por sondeo
 N_1Son=12; N_2Son=12; % N_Son1+N_Son2<=35!!
@@ -42,11 +44,11 @@ READINGS=fillTables(dataMatrix,READINGS,N_1Son,N_2Son);
 
 %Ploteo de lecturas
 figure(RSSI_figure)
-plotRSSI(1,READINGS,1);
-plotRSSI(1,READINGS,2);
-plotRSSI(1,READINGS,3);
-plotRSSI(1,READINGS,4);
-plotRSSI(1,READINGS,5);
+plotRSSI(1,READINGS,1,thld_RSSI);
+plotRSSI(1,READINGS,2,thld_RSSI);
+plotRSSI(1,READINGS,3,thld_RSSI);
+plotRSSI(1,READINGS,4,thld_RSSI);
+plotRSSI(1,READINGS,5,thld_RSSI);
 
 figure(COIL_figure)
 plotCOIL(2,READINGS,1,no_lecturas)

@@ -1,9 +1,9 @@
-function p=plotRSSI(state,READINGS,id_robot)
+function p=plotRSSI(state,READINGS,id_robot,thld_RSSI)
 nCol=2;
 CH_number=1:5;
 %Plotea primer y segundo sondeo con maximos y umbral
-if READINGS.NAVIGATION.CurrentState(1)==state & READINGS.CABECERA.Robot_ID(1)==id_robot
-%if READINGS.CABECERA.Robot_ID(1)==id_robot
+%if READINGS.NAVIGATION.CurrentState(1)==state & READINGS.CABECERA.Robot_ID(1)==id_robot
+if READINGS.CABECERA.Robot_ID(1)==id_robot
 
 Son1_lin=10.^(READINGS.RSSI.RSSI_1(1,:)'./10);
 Son2_lin=10.^(READINGS.RSSI.RSSI_2(1,:)'./10);
@@ -35,13 +35,18 @@ set(gca,'xtick',0:N_1Son)
 
 %RSSI en todos los canales
 subplot(5,nCol,2+(id_robot-1).*nCol)
-bar(CH_number,READINGS.RSSI{1,"RSSI_CH"},0.8,'FaceColor',rgb('LightSkyBlue'),'EdgeColor','none');
-xlabel("Channel")
-ylabel("RSSI")
+bar(CH_number,READINGS.RSSI{1,"RSSI_CH"},0.8,'FaceColor',rgb('LightSkyBlue'),'EdgeColor','none','BaseValue',-130);
+hold on
+yline(thld_RSSI,'--k','THLD')
+hold off
+%xlabel("Channel")
+ylabel("dB RSSI")
 grid on
 set(gca,'xtick',CH_number)
 title("Update: "+H+":"+m+":"+s)
 xlim([0.5 5.5])
+ylim([-130 -25])
+%yticks minor
 
 end
     
